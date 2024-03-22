@@ -11,6 +11,8 @@ let deck = [];
 let playerCards = [];
 let dealerCards = [];
 let gameOver = false;
+let firstRound = true; // 新增的布林變量，用於標記是否是第一輪遊戲
+let stand = false;
 
 // 初始化牌堆
 function initDeck() {
@@ -87,29 +89,30 @@ function updateGame() {
   dealerPointsDisplay.innerText = `莊家現在的點數是: ${dealerPoints}`;
 
   if (gameOver) return;
-  
-  if (playerCards.length === 2 && playerPoints === 21) {
-    message.innerText = '玩家 21 點！你贏了！';
-    gameOver = true;
-  } else if (checkBust(playerCards)) {
-    message.innerText = '玩家爆牌！莊家贏了！';
-    gameOver = true;
-  } else if (dealerCards.length === 2 && dealerPoints === 21) {
-    message.innerText = '莊家 21 點！莊家贏了！';
-    gameOver = true;
-  } else if (checkBust(dealerCards)) {
-    message.innerText = '莊家爆牌！玩家贏了！';
-    gameOver = true;
-  } else if (dealerPoints >= 17) {
-    if (playerPoints > dealerPoints) {
-      message.innerText = '玩家贏了！';
-    } else if (dealerPoints > playerPoints) {
-      message.innerText = '莊家贏了！';
-    } else {
-      message.innerText = '平手！';
-    }
-    gameOver = true;
-  }
+
+	if (playerCards.length === 2 && playerPoints === 21) {
+	  message.innerText = '玩家 21 點！你贏了！';
+	  gameOver = true;
+	} else if (checkBust(playerCards)) {
+	  message.innerText = '玩家爆牌！莊家贏了！';
+	  gameOver = true;
+	} else if (dealerCards.length === 2 && dealerPoints === 21) {
+	  message.innerText = '莊家 21 點！莊家贏了！';
+	  gameOver = true;
+	} else if (checkBust(dealerCards)) {
+	  message.innerText = '莊家爆牌！玩家贏了！';
+	  gameOver = true;
+	} else if (stand != false && firstRound != true && dealerPoints >= 17) {
+	  if (playerPoints > dealerPoints) {
+		message.innerText = '玩家贏了！';
+	  } else if (dealerPoints > playerPoints) {
+		message.innerText = '莊家贏了！';
+	  } else {
+		message.innerText = '平手！';
+	  }
+	  gameOver = true;
+	}
+
 }
 
 // 開始遊戲
@@ -120,6 +123,8 @@ function startGame() {
   playerCards = [];
   dealerCards = [];
   gameOver = false;
+  firstRound = true;
+  stand = false;
   message.innerText = '';
 
   while (playerHand.firstChild) {
@@ -154,6 +159,7 @@ dealButton.addEventListener('click', startGame);
 
 // 要牌按鈕點擊事件
 hitButton.addEventListener('click', () => {
+	firstRound = false;
   if (!gameOver) {
     dealCard(playerCards);
     updateGame();
@@ -162,6 +168,8 @@ hitButton.addEventListener('click', () => {
 
 // 停牌按鈕點擊事件
 standButton.addEventListener('click', () => {
+	firstRound = false;
+	stand = true;
   if (!gameOver) {
     while (calculatePoints(dealerCards) < 17) {
       dealCard(dealerCards);
