@@ -106,6 +106,7 @@ function updateGame() {
     } else {
       message.innerText = '平手！';
     }
+    gameOver = true;
   }
 }
 
