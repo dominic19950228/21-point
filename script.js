@@ -78,7 +78,7 @@ function updatePoints() {
 
 // 更新遊戲狀態
 function updateGame() {
-  if (gameOver) return;
+  
 
   const playerPoints = calculatePoints(playerCards);
   const dealerPoints = calculatePoints(dealerCards);
@@ -86,6 +86,8 @@ function updateGame() {
   playerPointsDisplay.innerText = `你現在的點數是: ${playerPoints}`;
   dealerPointsDisplay.innerText = `莊家現在的點數是: ${dealerPoints}`;
 
+  if (gameOver) return;
+  
   if (playerCards.length === 2 && playerPoints === 21) {
     message.innerText = '玩家 21 點！你贏了！';
     gameOver = true;
