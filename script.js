@@ -4,6 +4,8 @@ const dealButton = document.getElementById('deal-button');
 const hitButton = document.getElementById('hit-button');
 const standButton = document.getElementById('stand-button');
 const message = document.getElementById('message');
+const playerPointsDisplay = document.getElementById('player-points');
+const dealerPointsDisplay = document.getElementById('dealer-points');
 
 let deck = [];
 let playerCards = [];
@@ -38,6 +40,13 @@ function dealCard(hand) {
   cardElement.alt = `${card.value} of ${card.suit}`;
   cardElement.style.maxWidth = '125px'; // Add this line to limit the image width
   hand === playerCards ? playerHand.appendChild(cardElement) : dealerHand.appendChild(cardElement);
+
+  // Update points display
+  if (hand === playerCards) {
+    playerPointsDisplay.innerText = `你現在的點數是: ${calculatePoints(playerCards)}`;
+  } else {
+    dealerPointsDisplay.innerText = `莊家現在的點數是: ${calculatePoints(dealerCards)}`;
+  }
 }
 
 // 計算手牌點數
@@ -74,6 +83,9 @@ function updateGame() {
   const playerPoints = calculatePoints(playerCards);
   const dealerPoints = calculatePoints(dealerCards);
 
+  playerPointsDisplay.innerText = `你現在的點數是: ${playerPoints}`;
+  dealerPointsDisplay.innerText = `莊家現在的點數是: ${dealerPoints}`;
+
   if (playerCards.length === 2 && playerPoints === 21) {
     message.innerText = '玩家 21 點！你贏了！';
     gameOver = true;
@@ -107,6 +119,19 @@ function startGame() {
   gameOver = false;
   message.innerText = '';
 
+  // Add titles for player and dealer hands
+  const playerTitle = document.createElement('h2');
+  playerTitle.innerText = '你的手牌是:';
+  playerHand.appendChild(playerTitle);
+
+  const dealerTitle = document.createElement('h2');
+  dealerTitle.innerText = '莊家的手牌是:';
+  dealerHand.appendChild(dealerTitle);
+
+  // Show initial points
+  playerPointsDisplay.innerText = '你現在的點數是: 0';
+  dealerPointsDisplay.innerText = '莊家現在的點數是: 0';
+
   while (playerHand.firstChild) {
     playerHand.removeChild(playerHand.firstChild);
   }
@@ -139,9 +164,4 @@ standButton.addEventListener('click', () => {
     while (calculatePoints(dealerCards) < 17) {
       dealCard(dealerCards);
     }
-    updateGame();
-  }
-});
-
-// 初始化遊戲
-startGame();
+    updateGame
