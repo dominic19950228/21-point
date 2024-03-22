@@ -40,15 +40,8 @@ function dealCard(hand) {
   cardElement.alt = `${card.value} of ${card.suit}`;
   cardElement.style.maxWidth = '125px'; // Add this line to limit the image width
   hand === playerCards ? playerHand.appendChild(cardElement) : dealerHand.appendChild(cardElement);
-
-  // Update points display
-  if (hand === playerCards) {
-    playerPointsDisplay.innerText = `你現在的點數是: ${calculatePoints(playerCards)}`;
-  } else {
-    dealerPointsDisplay.innerText = `莊家現在的點數是: ${calculatePoints(dealerCards)}`;
-  }
+  updatePoints();
 }
-
 
 // 計算手牌點數
 function calculatePoints(cards) {
@@ -75,6 +68,12 @@ function calculatePoints(cards) {
 // 檢查是否爆牌
 function checkBust(cards) {
   return calculatePoints(cards) > 21;
+}
+
+// 更新點數
+function updatePoints() {
+  playerPointsDisplay.innerText = `你現在的點數是: ${calculatePoints(playerCards)}`;
+  dealerPointsDisplay.innerText = `莊家現在的點數是: ${calculatePoints(dealerCards)}`;
 }
 
 // 更新遊戲狀態
@@ -120,6 +119,13 @@ function startGame() {
   gameOver = false;
   message.innerText = '';
 
+  while (playerHand.firstChild) {
+    playerHand.removeChild(playerHand.firstChild);
+  }
+  while (dealerHand.firstChild) {
+    dealerHand.removeChild(dealerHand.firstChild);
+  }
+
   // Add titles for player and dealer hands
   const playerTitle = document.createElement('h2');
   playerTitle.innerText = '你的手牌是:';
@@ -129,16 +135,8 @@ function startGame() {
   dealerTitle.innerText = '莊家的手牌是:';
   dealerHand.appendChild(dealerTitle);
 
-  // Show initial points
-  playerPointsDisplay.innerText = '你現在的點數是: 0';
-  dealerPointsDisplay.innerText = '莊家現在的點數是: 0';
-
-  while (playerHand.firstChild) {
-    playerHand.removeChild(playerHand.firstChild);
-  }
-  while (dealerHand.firstChild) {
-    dealerHand.removeChild(dealerHand.firstChild);
-  }
+  // Display points initially
+  updatePoints();
 
   dealCard(playerCards);
   dealCard(dealerCards);
@@ -165,4 +163,9 @@ standButton.addEventListener('click', () => {
     while (calculatePoints(dealerCards) < 17) {
       dealCard(dealerCards);
     }
-    updateGame
+    updateGame();
+  }
+});
+
+// 初始化遊戲
+startGame();
