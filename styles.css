@@ -51,8 +51,19 @@ button:disabled {
 }
 
 /* 媒體查詢，根據螢幕寬度調整遊戲板大小 */
-@media screen and (min-width: 600px) {
+@media screen and (max-width: 600px) {
   #game {
-    width: 400px;
+    width: 90%;
+    max-width: 400px;
+  }
+  
+  .hand img {
+    max-width: 30%;
+    margin: 0.5%;
+  }
+
+  .hand {
+    overflow-x: auto;
+    white-space: nowrap;
   }
 }
