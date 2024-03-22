@@ -12,7 +12,7 @@ let gameOver = false;
 
 // 初始化牌堆
 function initDeck() {
-  const suits = ['♣', '♦', '♥', '♠'];
+  const suits = ['spades', 'clubs', 'hearts', 'diamonds'];
   const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
   for (let suit of suits) {
     for (let value of values) {
@@ -33,8 +33,9 @@ function shuffleDeck() {
 function dealCard(hand) {
   const card = deck.pop();
   hand.push(card);
-  const cardElement = document.createElement('div');
-  cardElement.innerText = `${card.value}${card.suit}`;
+  const cardElement = document.createElement('img');
+  cardElement.src = `images/${card.value}_of_${card.suit}.png`;
+  cardElement.alt = `${card.value} of ${card.suit}`;
   hand === playerCards ? playerHand.appendChild(cardElement) : dealerHand.appendChild(cardElement);
 }
 
