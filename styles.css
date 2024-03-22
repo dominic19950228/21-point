@@ -53,6 +53,10 @@ button:disabled {
   cursor: not-allowed;
 }
 
+h2 {
+  line-height: 0.2; /* 將行高設置為 0.2 倍的字體大小 */
+}
+
 #message {
   margin-top: 20px;
   font-weight: bold;
