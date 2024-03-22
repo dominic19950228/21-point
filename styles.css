@@ -3,15 +3,17 @@ body {
   background-color: #f8f8f8;
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
 }
 
-#game {
-  width: 90%; /* 將遊戲板寬度設置為父容器的 90% */
-  max-width: 400px; /* 最大寬度設置為 400px，以防止遊戲板過於寬廣 */
+.container {
+  width: 100%;
+  max-width: 600px; /* 可根據需要調整最大寬度 */
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.game {
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
@@ -21,6 +23,13 @@ body {
 
 .hand {
   margin-bottom: 20px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.hand img {
+  max-width: 125px; /* 調整手牌圖片的最大寬度 */
+  margin-right: 10px;
 }
 
 button {
@@ -48,22 +57,4 @@ button:disabled {
   margin-top: 20px;
   font-weight: bold;
   color: #ff3b30;
-}
-
-/* 媒體查詢，根據螢幕寬度調整遊戲板大小 */
-@media screen and (max-width: 600px) {
-  #game {
-    width: 90%;
-    max-width: 400px;
-  }
-  
-  .hand img {
-    max-width: 30%;
-    margin: 0.5%;
-  }
-
-  .hand {
-    overflow-x: auto;
-    white-space: nowrap;
-  }
 }
