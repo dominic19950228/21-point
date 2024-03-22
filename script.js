@@ -98,7 +98,7 @@ function updateGame() {
   } else if (checkBust(dealerCards)) {
     message.innerText = '莊家爆牌！玩家贏了！';
     gameOver = true;
-  } else if (gameOver) {
+  } else if (dealerPoints >= 17) {
     if (playerPoints > dealerPoints) {
       message.innerText = '玩家贏了！';
     } else if (dealerPoints > playerPoints) {
