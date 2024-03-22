@@ -98,16 +98,18 @@ function updateGame() {
   } else if (checkBust(dealerCards)) {
     message.innerText = '莊家爆牌！玩家贏了！';
     gameOver = true;
+  } else if (dealerPoints > playerPoints) { // 添加這一行以處理莊家贏的情況
+    message.innerText = '莊家贏了！';
+    gameOver = true;
   } else if (gameOver) {
     if (playerPoints > dealerPoints) {
       message.innerText = '玩家贏了！';
-    } else if (dealerPoints > playerPoints) {
-      message.innerText = '莊家贏了！';
-    } else {
+    } else if (dealerPoints === playerPoints) {
       message.innerText = '平手！';
     }
   }
 }
+
 
 // 開始遊戲
 function startGame() {
