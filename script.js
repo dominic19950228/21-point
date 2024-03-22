@@ -49,6 +49,7 @@ function dealCard(hand) {
   }
 }
 
+
 // 計算手牌點數
 function calculatePoints(cards) {
   let points = 0;
