@@ -10,7 +10,7 @@ let playerCards = [];
 let dealerCards = [];
 let gameOver = false;
 
-// ªì©l¤ÆµP°ï
+// åˆå§‹åŒ–ç‰Œå †
 function initDeck() {
   const suits = ['?', '?', '?', '?'];
   const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
@@ -21,7 +21,7 @@ function initDeck() {
   }
 }
 
-// ¬~µP
+// æ´—ç‰Œ
 function shuffleDeck() {
   for (let i = deck.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -29,7 +29,7 @@ function shuffleDeck() {
   }
 }
 
-// µoµP
+// ç™¼ç‰Œ
 function dealCard(hand) {
   const card = deck.pop();
   hand.push(card);
@@ -38,7 +38,7 @@ function dealCard(hand) {
   hand === playerCards ? playerHand.appendChild(cardElement) : dealerHand.appendChild(cardElement);
 }
 
-// ­pºâ¤âµPÂI¼Æ
+// è¨ˆç®—æ‰‹ç‰Œé»æ•¸
 function calculatePoints(cards) {
   let points = 0;
   let hasAce = false;
@@ -60,12 +60,12 @@ function calculatePoints(cards) {
   return points;
 }
 
-// ÀË¬d¬O§_ÃzµP
+// æª¢æŸ¥æ˜¯å¦çˆ†ç‰Œ
 function checkBust(cards) {
   return calculatePoints(cards) > 21;
 }
 
-// §ó·s¹CÀ¸ª¬ºA
+// æ›´æ–°éŠæˆ²ç‹€æ…‹
 function updateGame() {
   if (gameOver) return;
 
@@ -73,29 +73,29 @@ function updateGame() {
   const dealerPoints = calculatePoints(dealerCards);
 
   if (playerCards.length === 2 && playerPoints === 21) {
-    message.innerText = 'ª±®a 21 ÂI¡I§AÄ¹¤F¡I';
+    message.innerText = 'ç©å®¶ 21 é»ï¼ä½ è´äº†ï¼';
     gameOver = true;
   } else if (checkBust(playerCards)) {
-    message.innerText = 'ª±®aÃzµP¡I²ø®aÄ¹¤F¡I';
+    message.innerText = 'ç©å®¶çˆ†ç‰Œï¼èŠå®¶è´äº†ï¼';
     gameOver = true;
   } else if (dealerCards.length === 2 && dealerPoints === 21) {
-    message.innerText = '²ø®a 21 ÂI¡I²ø®aÄ¹¤F¡I';
+    message.innerText = 'èŠå®¶ 21 é»ï¼èŠå®¶è´äº†ï¼';
     gameOver = true;
   } else if (checkBust(dealerCards)) {
-    message.innerText = '²ø®aÃzµP¡Iª±®aÄ¹¤F¡I';
+    message.innerText = 'èŠå®¶çˆ†ç‰Œï¼ç©å®¶è´äº†ï¼';
     gameOver = true;
   } else if (gameOver) {
     if (playerPoints > dealerPoints) {
-      message.innerText = 'ª±®aÄ¹¤F¡I';
+      message.innerText = 'ç©å®¶è´äº†ï¼';
     } else if (dealerPoints > playerPoints) {
-      message.innerText = '²ø®aÄ¹¤F¡I';
+      message.innerText = 'èŠå®¶è´äº†ï¼';
     } else {
-      message.innerText = '¥­¤â¡I';
+      message.innerText = 'å¹³æ‰‹ï¼';
     }
   }
 }
 
-// ¶}©l¹CÀ¸
+// é–‹å§‹éŠæˆ²
 function startGame() {
   initDeck();
   shuffleDeck();
@@ -120,10 +120,10 @@ function startGame() {
   updateGame();
 }
 
-// µoµP«ö¶sÂIÀ»¨Æ¥ó
+// ç™¼ç‰ŒæŒ‰éˆ•é»æ“Šäº‹ä»¶
 dealButton.addEventListener('click', startGame);
 
-// ­nµP«ö¶sÂIÀ»¨Æ¥ó
+// è¦ç‰ŒæŒ‰éˆ•é»æ“Šäº‹ä»¶
 hitButton.addEventListener('click', () => {
   if (!gameOver) {
     dealCard(playerCards);
@@ -131,7 +131,7 @@ hitButton.addEventListener('click', () => {
   }
 });
 
-// °±µP«ö¶sÂIÀ»¨Æ¥ó
+// åœç‰ŒæŒ‰éˆ•é»æ“Šäº‹ä»¶
 standButton.addEventListener('click', () => {
   if (!gameOver) {
     while (calculatePoints(dealerCards) < 17) {
@@ -141,5 +141,5 @@ standButton.addEventListener('click', () => {
   }
 });
 
-// ªì©l¤Æ¹CÀ¸
+// åˆå§‹åŒ–éŠæˆ²
 startGame();
