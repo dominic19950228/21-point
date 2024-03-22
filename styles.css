@@ -3,15 +3,19 @@ body {
   background-color: #f8f8f8;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 #game {
-  max-width: 400px;
-  margin: 50px auto;
+  width: 400px;
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid #007aff;
 }
 
 .hand {
