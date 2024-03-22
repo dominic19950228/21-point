@@ -12,7 +12,7 @@ let gameOver = false;
 
 // 初始化牌堆
 function initDeck() {
-  const suits = ['spades', 'clubs', 'hearts', 'diamonds'];
+  const suits = ['clubs', 'spades', 'hearts', 'diamonds'];
   const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
   for (let suit of suits) {
     for (let value of values) {
@@ -36,7 +36,7 @@ function dealCard(hand) {
   const cardElement = document.createElement('img');
   cardElement.src = `images/${card.value}_of_${card.suit}.png`;
   cardElement.alt = `${card.value} of ${card.suit}`;
-  cardElement.style.maxWidth = '125px';
+  cardElement.style.maxWidth = '125px'; // Add this line to limit the image width
   hand === playerCards ? playerHand.appendChild(cardElement) : dealerHand.appendChild(cardElement);
 }
 
@@ -113,6 +113,15 @@ function startGame() {
   while (dealerHand.firstChild) {
     dealerHand.removeChild(dealerHand.firstChild);
   }
+
+  // Add titles for player and dealer hands
+  const playerTitle = document.createElement('h2');
+  playerTitle.innerText = '你的手牌是:';
+  playerHand.appendChild(playerTitle);
+
+  const dealerTitle = document.createElement('h2');
+  dealerTitle.innerText = '莊家的手牌是:';
+  dealerHand.appendChild(dealerTitle);
 
   dealCard(playerCards);
   dealCard(dealerCards);
