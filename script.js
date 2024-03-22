@@ -36,6 +36,7 @@ function dealCard(hand) {
   const cardElement = document.createElement('img');
   cardElement.src = `images/${card.value}_of_${card.suit}.png`;
   cardElement.alt = `${card.value} of ${card.suit}`;
+  cardElement.style.maxWidth = '125px';
   hand === playerCards ? playerHand.appendChild(cardElement) : dealerHand.appendChild(cardElement);
 }
 
