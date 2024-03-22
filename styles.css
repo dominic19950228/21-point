@@ -48,3 +48,7 @@ button:disabled {
   font-weight: bold;
   color: #ff3b30;
 }
+
+img {
+  max-width: 125px;
+}
