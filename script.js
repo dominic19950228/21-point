@@ -4,8 +4,6 @@ const dealButton = document.getElementById('deal-button');
 const hitButton = document.getElementById('hit-button');
 const standButton = document.getElementById('stand-button');
 const message = document.getElementById('message');
-const playerPointsDisplay = document.getElementById('player-points');
-const dealerPointsDisplay = document.getElementById('dealer-points');
 
 let deck = [];
 let playerCards = [];
@@ -76,6 +74,7 @@ function updateGame() {
   const playerPoints = calculatePoints(playerCards);
   const dealerPoints = calculatePoints(dealerCards);
 
+  // Update player and dealer points display
   playerPointsDisplay.innerText = `你現在的點數是: ${playerPoints}`;
   dealerPointsDisplay.innerText = `莊家現在的點數是: ${dealerPoints}`;
 
@@ -128,4 +127,45 @@ function startGame() {
   dealerTitle.innerText = '莊家的手牌是:';
   dealerHand.appendChild(dealerTitle);
 
-  // Add divs for player
+  // Add displays for player and dealer points
+  const playerPointsDisplay = document.createElement('p');
+  playerPointsDisplay.id = 'player-points';
+  playerPointsDisplay.innerText = '';
+  playerHand.appendChild(playerPointsDisplay);
+
+  const dealerPointsDisplay = document.createElement('p');
+  dealerPointsDisplay.id = 'dealer-points';
+  dealerPointsDisplay.innerText = '';
+  dealerHand.appendChild(dealerPointsDisplay);
+
+  dealCard(playerCards);
+  dealCard(dealerCards);
+  dealCard(playerCards);
+  dealCard(dealerCards);
+
+  updateGame();
+}
+
+// 發牌按鈕點擊事件
+dealButton.addEventListener('click', startGame);
+
+// 要牌按鈕點擊事件
+hitButton.addEventListener('click', () => {
+  if (!gameOver) {
+    dealCard(playerCards);
+    updateGame();
+  }
+});
+
+// 停牌按鈕點擊事件
+standButton.addEventListener('click', () => {
+  if (!gameOver) {
+    while (calculatePoints(dealerCards) < 17) {
+      dealCard(dealerCards);
+    }
+    updateGame();
+  }
+});
+
+// 初始化遊戲
+startGame();
