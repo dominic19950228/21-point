@@ -1,3 +1,15 @@
+
+/* 小型設備（手機） */
+@media only screen and (max-width: 600px) {
+  /* 你的 CSS 樣式設置 */
+  .container {
+    width: 100%; /* 將容器的寬度設置為螢幕寬度的 100% */
+    padding: 0 10px; /* 添加一些左右填充 */
+  }
+  
+  /* 如果需要，可以調整其他元素的大小或排列方式 */
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   background-color: #f8f8f8;
