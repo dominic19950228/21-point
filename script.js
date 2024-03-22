@@ -40,6 +40,7 @@ function dealCard(hand) {
   cardElement.alt = `${card.value} of ${card.suit}`;
   cardElement.style.maxWidth = '125px'; // Add this line to limit the image width
   hand === playerCards ? playerHand.appendChild(cardElement) : dealerHand.appendChild(cardElement);
+  updatePoints();
 }
 
 // 計算手牌點數
@@ -67,6 +68,12 @@ function calculatePoints(cards) {
 // 檢查是否爆牌
 function checkBust(cards) {
   return calculatePoints(cards) > 21;
+}
+
+// 更新點數
+function updatePoints() {
+  playerPointsDisplay.innerText = `你現在的點數是: ${calculatePoints(playerCards)}`;
+  dealerPointsDisplay.innerText = `莊家現在的點數是: ${calculatePoints(dealerCards)}`;
 }
 
 // 更新遊戲狀態
@@ -128,4 +135,37 @@ function startGame() {
   dealerTitle.innerText = '莊家的手牌是:';
   dealerHand.appendChild(dealerTitle);
 
-  // Add divs for player
+  // Display points initially
+  updatePoints();
+
+  dealCard(playerCards);
+  dealCard(dealerCards);
+  dealCard(playerCards);
+  dealCard(dealerCards);
+
+  updateGame();
+}
+
+// 發牌按鈕點擊事件
+dealButton.addEventListener('click', startGame);
+
+// 要牌按鈕點擊事件
+hitButton.addEventListener('click', () => {
+  if (!gameOver) {
+    dealCard(playerCards);
+    updateGame();
+  }
+});
+
+// 停牌按鈕點擊事件
+standButton.addEventListener('click', () => {
+  if (!gameOver) {
+    while (calculatePoints(dealerCards) < 17) {
+      dealCard(dealerCards);
+    }
+    updateGame();
+  }
+});
+
+// 初始化遊戲
+startGame();
