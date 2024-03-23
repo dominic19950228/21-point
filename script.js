@@ -84,7 +84,7 @@ function updatePoints() {
 		const username = document.getElementById('username').textContent; // ?取?前用?名
 
 		// 更新游??果
-		const updateResponse = await fetch('https://f39c-58-107-253-203.ngrok-free.app/update-results', {
+		const updateResponse = await fetch('http://localhost:3000/update-results', {
 		  method: 'POST',
 		  headers: {
 			'Content-Type': 'application/json'
@@ -95,7 +95,7 @@ function updatePoints() {
 		console.log(updateData);
 
 		// ?取更新后的胜?次?
-		const resultsResponse = await fetch(`https://f39c-58-107-253-203.ngrok-free.app/results?username=${username}`, {
+		const resultsResponse = await fetch(`http://localhost:3000/results?username=${username}`, {
 		  method: 'GET',
 		  headers: {
 			'Content-Type': 'application/json'
