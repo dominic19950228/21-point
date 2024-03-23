@@ -98,7 +98,8 @@ function updatePoints() {
 		const resultsResponse = await fetch(`https://6a21-58-107-253-203.ngrok-free.app/results?username=${username}`, {
 		  method: 'GET',
 		  headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+		    'ngrok-skip-browser-warning': '123'
 		  }
 		});
 		const resultData = await resultsResponse.json();
