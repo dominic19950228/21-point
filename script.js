@@ -78,6 +78,43 @@ function updatePoints() {
   dealerPointsDisplay.innerText = `莊家現在的點數是: ${calculatePoints(dealerCards)}`;
 }
 
+// 游??束后更新游??果并?取更新后的胜?次?
+	async function updateGameResult(result) {
+	  try {
+		const username = document.getElementById('username').textContent; // ?取?前用?名
+
+		// 更新游??果
+		const updateResponse = await fetch('http://localhost:3000/update-results', {
+		  method: 'POST',
+		  headers: {
+			'Content-Type': 'application/json'
+		  },
+		  body: JSON.stringify({ result, username })
+		});
+		const updateData = await updateResponse.json();
+		console.log(updateData);
+
+		// ?取更新后的胜?次?
+		const resultsResponse = await fetch(`http://localhost:3000/results?username=${username}`, {
+		  method: 'GET',
+		  headers: {
+			'Content-Type': 'application/json'
+		  }
+		});
+		const resultData = await resultsResponse.json();
+		const winSpan = document.getElementById('win');
+		const loseSpan = document.getElementById('lose');
+
+		winSpan.textContent = resultData.win;
+		loseSpan.textContent = resultData.lose;
+		document.getElementById('result').style.display = 'block'; // ?示?果?域
+	  } catch (error) {
+		console.error('Error:', error);
+	  }
+	}
+
+
+
 // 更新遊戲狀態
 function updateGame() {
   
@@ -93,20 +130,26 @@ function updateGame() {
 	if (playerCards.length === 2 && playerPoints === 21) {
 	  message.innerText = '玩家 21 點！你贏了！';
 	  gameOver = true;
+	  updateGameResult('win'); 
 	} else if (checkBust(playerCards)) {
 	  message.innerText = '玩家爆牌！莊家贏了！';
 	  gameOver = true;
+	  updateGameResult('lose');
 	} else if (dealerCards.length === 2 && dealerPoints === 21) {
 	  message.innerText = '莊家 21 點！莊家贏了！';
 	  gameOver = true;
+	  updateGameResult('lose');
 	} else if (checkBust(dealerCards)) {
 	  message.innerText = '莊家爆牌！玩家贏了！';
 	  gameOver = true;
+	  updateGameResult('win'); 
 	} else if (stand != false && firstRound != true && dealerPoints >= 17) {
 	  if (playerPoints > dealerPoints) {
 		message.innerText = '玩家贏了！';
+		updateGameResult('win'); 
 	  } else if (dealerPoints > playerPoints) {
 		message.innerText = '莊家贏了！';
+		updateGameResult('lose');
 	  } else {
 		message.innerText = '平手！';
 	  }
