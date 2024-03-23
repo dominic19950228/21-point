@@ -95,7 +95,7 @@ function updatePoints() {
 		console.log(updateData);
 
 		// ?取更新后的胜?次?
-		const resultsResponse = await fetch(`http://https://f39c-58-107-253-203.ngrok-free.app/results?username=${username}`, {
+		const resultsResponse = await fetch(`https://f39c-58-107-253-203.ngrok-free.app/results?username=${username}`, {
 		  method: 'GET',
 		  headers: {
 			'Content-Type': 'application/json'
