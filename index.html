@@ -1,7 +1,9 @@
+<!-- frontend.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="big5">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>21點遊戲</title>
   <link rel="stylesheet" href="styles.css">
@@ -23,10 +25,110 @@
         <button id="deal-button">發牌</button>
         <button id="hit-button">要牌</button>
         <button id="stand-button">停牌</button>
+        <button id="login-button">Login</button>
+		<div id="result" style="display: none;"><br>勝: <span id="win"></span> 負: <span id="lose"></span>用戶: <span id="username"></span></div>
       </div>
       <div id="message"></div>
     </div>
   </div>
+
+  <!-- 登入表單模態對話框 -->
+  <div id="login-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Login</h2>
+      <form id="login-form">
+        <div>
+          <label for="username">帳號:</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+          <label for="password">密碼:</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">登入</button>
+      </form>
+    </div>
+  </div>
+
+
+
   <script src="script.js"></script>
+  <script>
+    // 找到 Login 按鈕
+    const loginButton = document.getElementById('login-button');
+
+    // 找到登入模態對話框
+    const loginModal = document.getElementById('login-modal');
+
+    // 找到關閉按鈕
+    const closeButton = document.querySelector('.close');
+
+    // 當用戶點擊 Login 按鈕時，顯示登入模態對話框
+    loginButton.addEventListener('click', () => {
+      loginModal.style.display = 'block';
+    });
+
+    // 當用戶點擊關閉按鈕時，關閉登入模態對話框
+    closeButton.addEventListener('click', () => {
+      loginModal.style.display = 'none';
+    });
+
+    // 當用戶點擊模態對話框外部區域時，關閉登入模態對話框
+    window.addEventListener('click', (e) => {
+      if (e.target === loginModal) {
+        loginModal.style.display = 'none';
+      }
+    });
+	
+    // 登錄表單提交事件
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const username = formData.get('username');
+  const password = formData.get('password');
+
+  try {
+    const response = await fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+    });
+    const data = await response.json();
+    alert(data.message);
+
+    // 登錄成功後更新結果
+    if (data.message === 'login success') {
+      loginModal.style.display = 'none';
+      try {
+        const resultsResponse = await fetch(`http://localhost:3000/results?username=${username}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const resultData = await resultsResponse.json();
+        const winSpan = document.getElementById('win');
+        const loseSpan = document.getElementById('lose');
+        const usernameSpan = document.getElementById('username');
+
+        winSpan.textContent = resultData.win;
+        loseSpan.textContent = resultData.lose;
+        usernameSpan.textContent = resultData.username;
+        document.getElementById('result').style.display = 'block'; // 顯示結果區域
+      } catch (error) {
+        console.error('Error fetching results:', error);
+      }
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
+
+	
+	
+  </script>
 </body>
 </html>
