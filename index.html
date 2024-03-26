@@ -104,8 +104,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
 	  const resultsResponse = await fetch(`https://21-point-production.up.railway.app/results?username=${username}`, {
 		method: 'GET',
 		headers: {
-		  'Content-Type': 'application/json',
-		  'ngrok-skip-browser-warning': '123'
+		  'Content-Type': 'application/json'
 		}
 	  });
 
