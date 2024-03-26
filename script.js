@@ -11,10 +11,10 @@ let deck = [];
 let playerCards = [];
 let dealerCards = [];
 let gameOver = false;
-let firstRound = true; // 新增的布林變量，用於標記是否是第一輪遊戲
+let firstRound = true; // Boolean variable added to mark if it's the first round of the game
 let stand = false;
 
-// 初始化牌堆
+// Initialize the deck of cards
 function initDeck() {
   const suits = ['clubs', 'spades', 'hearts', 'diamonds'];
   const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
@@ -25,7 +25,7 @@ function initDeck() {
   }
 }
 
-// 洗牌
+// Shuffle the deck
 function shuffleDeck() {
   for (let i = deck.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -33,7 +33,7 @@ function shuffleDeck() {
   }
 }
 
-// 發牌
+// Deal a card
 function dealCard(hand) {
   const card = deck.pop();
   hand.push(card);
@@ -45,7 +45,7 @@ function dealCard(hand) {
   updatePoints();
 }
 
-// 計算手牌點數
+// Calculate the total points of a hand
 function calculatePoints(cards) {
   let points = 0;
   let hasAce = false;
@@ -67,99 +67,99 @@ function calculatePoints(cards) {
   return points;
 }
 
-// 檢查是否爆牌
+// Check if a hand is busted
 function checkBust(cards) {
   return calculatePoints(cards) > 21;
 }
 
-// 更新點數
+// Update the points display
 function updatePoints() {
-  playerPointsDisplay.innerText = `你現在的點數是: ${calculatePoints(playerCards)}`;
-  dealerPointsDisplay.innerText = `莊家現在的點數是: ${calculatePoints(dealerCards)}`;
+  playerPointsDisplay.innerText = `Your current points: ${calculatePoints(playerCards)}`;
+  dealerPointsDisplay.innerText = `Dealer's current points: ${calculatePoints(dealerCards)}`;
 }
 
-// 游??束后更新游??果并?取更新后的胜?次?
-	async function updateGameResult(result) {
-	  try {
-		const username = document.getElementById('username').textContent; // ?取?前用?名
+// Update game result after game ends and fetch updated win counts
+async function updateGameResult(result) {
+  try {
+    const username = document.getElementById('username').textContent; // Get the current username
 
-		// 更新游??果
-		const updateResponse = await fetch('https://21-point-production.up.railway.app/update-results', {
-		  method: 'POST',
-		  headers: {
-			'Content-Type': 'application/json'
-		  },
-		  body: JSON.stringify({ result, username })
-		});
-		const updateData = await updateResponse.json();
-		console.log(updateData);
+    // Update game result
+    const updateResponse = await fetch('https://21-point-production.up.railway.app/update-results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ result, username })
+    });
+    const updateData = await updateResponse.json();
+    console.log(updateData);
 
-		// ?取更新后的胜?次?
-		const resultsResponse = await fetch(`https://21-point-production.up.railway.app/results?username=${username}`, {
-		  method: 'GET',
-		  headers: {
-			'Content-Type': 'application/json',
-		    'ngrok-skip-browser-warning': '123'
-		  }
-		});
-		const resultData = await resultsResponse.json();
-		const winSpan = document.getElementById('win');
-		const loseSpan = document.getElementById('lose');
+    // Fetch updated win counts
+    const resultsResponse = await fetch(`https://21-point-production.up.railway.app/results?username=${username}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': '123'
+      }
+    });
+    const resultData = await resultsResponse.json();
+    const winSpan = document.getElementById('win');
+    const loseSpan = document.getElementById('lose');
 
-		winSpan.textContent = resultData.win;
-		loseSpan.textContent = resultData.lose;
-		document.getElementById('result').style.display = 'block'; // ?示?果?域
-	  } catch (error) {
-		console.error('Error:', error);
-	  }
-	}
+    winSpan.textContent = resultData.win;
+    loseSpan.textContent = resultData.lose;
+    document.getElementById('result').style.display = 'block'; // Show result area
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
 
 
 
-// 更新遊戲狀態
+// Update game status
 function updateGame() {
   
 
   const playerPoints = calculatePoints(playerCards);
   const dealerPoints = calculatePoints(dealerCards);
 
-  playerPointsDisplay.innerText = `你現在的點數是: ${playerPoints}`;
-  dealerPointsDisplay.innerText = `莊家現在的點數是: ${dealerPoints}`;
+  playerPointsDisplay.innerText = `Your current points: ${playerPoints}`;
+  dealerPointsDisplay.innerText = `Dealer's current points: ${dealerPoints}`;
 
   if (gameOver) return;
 
 	if (playerCards.length === 2 && playerPoints === 21) {
-	  message.innerText = '玩家 21 點！你贏了！';
+	  message.innerText = 'Player has 21 points! You win!';
 	  gameOver = true;
 	  updateGameResult('win'); 
 	} else if (checkBust(playerCards)) {
-	  message.innerText = '玩家爆牌！莊家贏了！';
+	  message.innerText = 'Player busts! Dealer wins!';
 	  gameOver = true;
 	  updateGameResult('lose');
 	} else if (dealerCards.length === 2 && dealerPoints === 21) {
-	  message.innerText = '莊家 21 點！莊家贏了！';
+	  message.innerText = 'Dealer has 21 points! Dealer wins!';
 	  gameOver = true;
 	  updateGameResult('lose');
 	} else if (checkBust(dealerCards)) {
-	  message.innerText = '莊家爆牌！玩家贏了！';
+	  message.innerText = 'Dealer busts! Player wins!';
 	  gameOver = true;
 	  updateGameResult('win'); 
 	} else if (stand != false && firstRound != true && dealerPoints >= 17) {
 	  if (playerPoints > dealerPoints) {
-		message.innerText = '玩家贏了！';
+		message.innerText = 'Player wins!';
 		updateGameResult('win'); 
 	  } else if (dealerPoints > playerPoints) {
-		message.innerText = '莊家贏了！';
+		message.innerText = 'Dealer wins!';
 		updateGameResult('lose');
 	  } else {
-		message.innerText = '平手！';
+		message.innerText = 'Tie!';
 	  }
 	  gameOver = true;
 	}
 
 }
 
-// 開始遊戲
+// Start the game
 function startGame() {
   initDeck();
   shuffleDeck();
@@ -180,11 +180,11 @@ function startGame() {
 
   // Add titles for player and dealer hands
   const playerTitle = document.createElement('h2');
-  playerTitle.innerText = '你的手牌是:';
+  playerTitle.innerText = 'Your hand:';
   playerHand.appendChild(playerTitle);
 
   const dealerTitle = document.createElement('h2');
-  dealerTitle.innerText = '莊家的手牌是:';
+  dealerTitle.innerText = "Dealer's hand:";
   dealerHand.appendChild(dealerTitle);
 
   // Display points initially
@@ -198,10 +198,10 @@ function startGame() {
   updateGame();
 }
 
-// 發牌按鈕點擊事件
+// Deal button click event
 dealButton.addEventListener('click', startGame);
 
-// 要牌按鈕點擊事件
+// Hit button click event
 hitButton.addEventListener('click', () => {
 	firstRound = false;
   if (!gameOver) {
@@ -210,7 +210,7 @@ hitButton.addEventListener('click', () => {
   }
 });
 
-// 停牌按鈕點擊事件
+// Stand button click event
 standButton.addEventListener('click', () => {
 	firstRound = false;
 	stand = true;
@@ -222,5 +222,5 @@ standButton.addEventListener('click', () => {
   }
 });
 
-// 初始化遊戲
+// Initialize the game
 startGame();
