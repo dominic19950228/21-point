@@ -98,8 +98,7 @@ async function updateGameResult(result) {
     const resultsResponse = await fetch(`https://21-point-production.up.railway.app/results?username=${username}`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
-        'ngrok-skip-browser-warning': '123'
+        'Content-Type': 'application/json'
       }
     });
     const resultData = await resultsResponse.json();
