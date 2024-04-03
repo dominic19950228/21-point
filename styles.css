@@ -1,108 +1,108 @@
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: #f8f8f8;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  width: 100%;
-  max-width: 600px; /* 可根據需要調整最大寬度 */
-  margin: 0 auto;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.game {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 2px solid #007aff;
-}
-
-.hand {
-  margin-bottom: 20px;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-.hand img {
-  max-width: 125px; /* 調整手牌圖片的最大寬度 */
-  margin-right: 10px;
-}
-
-button {
-  margin-right: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: none;
-  background-color: #007aff;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-button:disabled {
-  background-color: #c4c4c4;
-  cursor: not-allowed;
-}
-
-h2 {
-  line-height: 0.2; /* 將行高設置為 1.5 倍的字體大小 */
-}
-
-#message {
-  margin-top: 20px;
-  font-weight: bold;
-  color: #ff3b30;
-}
 
 /* styles.css */
 
-/* 將模態對話框設置為隱藏並設置視覺效果 */
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+background-color: #f8f8f8;
+margin: 0;
+padding: 0;
+}
+
+.container {
+width: 100%;
+max-width: 600px;
+margin: 0 auto;
+padding: 20px;
+box-sizing: border-box;
+}
+
+.game {
+background-color: #fff;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+border: 2px solid #007aff;
+}
+
+.hand {
+margin-bottom: 20px;
+overflow-x: auto;
+white-space: nowrap;
+}
+
+.hand img {
+max-width: 125px; /* Adjust the maximum width of the hand card images */
+margin-right: 10px;
+}
+
+button {
+margin-right: 10px;
+padding: 10px 20px;
+font-size: 16px;
+border-radius: 5px;
+border: none;
+background-color: #007aff;
+color: #fff;
+cursor: pointer;
+transition: background-color 0.3s;
+}
+
+button:hover {
+background-color: #0056b3;
+}
+
+button:disabled {
+background-color: #c4c4c4;
+cursor: not-allowed;
+}
+
+h2 {
+line-height: 0.2; /* Set line height to 0.2 times the font size */
+}
+
+#message {
+margin-top: 20px;
+font-weight: bold;
+color: #ff3b30;
+}
+
+/* Set modal dialog to hidden and apply visual effects */
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+display: none;
+position: fixed;
+z-index: 1;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* 將模態對話框置中 */
+/* Center the modal dialog */
 .modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 400px; /* 確保模態對話框不會太寬 */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  box-sizing: border-box;
+background-color: #fefefe;
+margin: 15% auto;
+padding: 20px;
+border: 1px solid #888;
+width: 80%;
+max-width: 400px;
+border-radius: 10px;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+box-sizing: border-box;
 }
 
-/* 添加關閉按鈕樣式 */
+/* Add close button style */
 .close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
 }
 
 .close:hover,
 .close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+color: black;
+text-decoration: none;
+cursor: pointer;
 }
-
