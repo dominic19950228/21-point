@@ -84,7 +84,7 @@ async function updateGameResult(result) {
     const username = document.getElementById('username').textContent; // Get the current username
 
     // Update game result
-    const updateResponse = await fetch('https://21-point-nodejs.railway.internal/update-results', {
+    const updateResponse = await fetch('http://localhost:3000/update-results', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -95,7 +95,7 @@ async function updateGameResult(result) {
     console.log(updateData);
 
     // Fetch updated win counts
-    const resultsResponse = await fetch(`https://21-point-nodejs.railway.internal/results?username=${username}`, {
+    const resultsResponse = await fetch(`http://localhost:3000/results?username=${username}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
